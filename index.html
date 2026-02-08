@@ -273,7 +273,8 @@
         <button onclick="celebrate()">One More Surprise 💝</button>
     </div>
 
-    <audio id="bgMusic" loop autoplay>
+    <!-- AUDIO (no autoplay – mobile safe) -->
+    <audio id="bgMusic" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
@@ -281,16 +282,34 @@
         const card = document.getElementById("card");
         const originalHTML = card.innerHTML;
         const music = document.getElementById("bgMusic");
+        let musicStarted = false;
+
+        function startMusic() {
+            if (!musicStarted) {
+                music.volume = 0.4;
+                music.play().catch(() => {});
+                musicStarted = true;
+            }
+        }
+
+        document.addEventListener("click", startMusic, { once: true });
+        document.addEventListener("touchstart", startMusic, { once: true });
 
         function bindImage() {
             const photo = document.getElementById("photo");
             if (photo) {
-                photo.onclick = () => photo.classList.toggle("active");
+                photo.onclick = () => {
+                    startMusic();
+                    photo.classList.toggle("active");
+                };
             }
         }
         bindImage();
 
         function celebrate() {
+            startMusic();
+            music.volume = 0.5;
+
             for (let i = 0; i < 35; i++) {
                 setTimeout(() => {
                     const p = document.createElement("div");
