@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ammu ❤️ Raghul | Valentine</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  font-family: "Segoe UI", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.card {
+  background: #fff;
+  border-radius: 22px;
+  max-width: 380px;
+  width: 100%;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  animation: pop 0.8s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+h1 {
+  color: #ff2f68;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.sub {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.heart {
+  font-size: 48px;
+  animation: pulse 1.2s infinite alternate;
+}
+
+@keyframes pulse {
+  to { transform: scale(1.2); }
+}
+
+.timeline {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.event {
+  background: #fff0f5;
+  padding: 12px 14px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.6s forwards;
+}
+
+.event:nth-child(1){ animation-delay: 0.2s;}
+.event:nth-child(2){ animation-delay: 0.4s;}
+.event:nth-child(3){ animation-delay: 0.6s;}
+.event:nth-child(4){ animation-delay: 0.8s;}
+
+@keyframes slideIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.kavithai {
+  background: #fff5f8;
+  padding: 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+button {
+  margin-top: 18px;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  background: #ff2f68;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255,47,104,0.4);
+}
+
+.petal {
+  position: fixed;
+  font-size: 22px;
+  animation: fall linear forwards;
+  pointer-events: none;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.final {
+  animation: pop 0.6s ease;
+}
+
+audio {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <div class="heart">💖</div>
+  <h1>Happy Valentine’s Day Ammu 🌸</h1>
+  <p class="sub">From Raghul — always yours ❤️</p>
+
+  <div class="timeline">
+    <div class="event">📖 Jan 14, 2023 — I shared my diary with you</div>
+    <div class="event">💍 Mar 27, 2023 — I proposed my love</div>
+    <div class="event">❤️ Apr 4, 2023 — You said YES</div>
+    <div class="event">💞 1047 Days of Love till Feb 14, 2026</div>
+  </div>
+
+  <div class="kavithai">
+    “April 4-il nee ‘yes’ sonna nodi,<br>
+    En vazhkaiyin artham maari pochu Ammu.<br><br>
+
+    Kena nu kooptaalum,<br>
+    Ammu nu azhaithaalum,<br>
+    Indhumathi nu ezhuthinaalum,<br>
+    Ellam ore peyar thaan — <b>En kadhal.</b> 💕”
+  </div>
+
+  <button onclick="celebrate()">One Last Surprise 💝</button>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const card = document.getElementById("card");
+const music = document.getElementById("bgMusic");
+
+function celebrate() {
+  music.volume = 0.4;
+  music.play().catch(()=>{});
+
+  for (let i = 0; i < 30; i++) {
+    setTimeout(() => {
+      const p = document.createElement("div");
+      p.className = "petal";
+      p.textContent = "🌹";
+      p.style.left = Math.random() * 100 + "%";
+      p.style.animationDuration = 3 + Math.random() * 3 + "s";
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 6000);
+    }, i * 120);
+  }
+
+  setTimeout(() => {
+    card.innerHTML = `
+      <div class="heart">💞</div>
+      <h1>Ammu…</h1>
+      <p class="sub final">
+        1047 days kadandhaalum,<br>
+        naan unna kaadhalikka aarambichadhu<br>
+        <b>innikku thaan madhiri irukku.</b><br><br>
+        Forever yours,<br>
+        <b>Raghul ❤️</b>
+      </p>
+    `;
+  }, 800);
+}
+</script>
+
+</body>
+</html>
