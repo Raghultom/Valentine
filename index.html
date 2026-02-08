@@ -92,6 +92,14 @@
         }
 
         /* Image with hidden text */
+        .image-container,
+        button {
+            outline: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
         .image-container {
             position: relative;
             width: 220px;
@@ -210,6 +218,7 @@
                 transform: translateY(0) rotate(0deg);
                 opacity: 1;
             }
+
             to {
                 transform: translateY(110vh) rotate(720deg);
                 opacity: 0;
@@ -313,7 +322,7 @@
             <p class="sub">
                 1047 naatkal kadandhaalum,<br>
                 naan unna kaadhalikka aarambichadhu<br>
-                <b>innikku thaan madhiri irukku.</b><br><br>
+                <b>innikku madhiri thaan irukku.</b><br><br>
                 Forever & Always,<br>
                 <b>Raghul ❤️</b>
             </p>
