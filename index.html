@@ -1,296 +1,327 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ammu ❤️ Raghul | Valentine</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ammu ❤️ Raghul | Valentine</title>
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-body {
-  min-height: 100vh;
-  font-family: "Segoe UI", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  overflow-x: hidden;
-  background: radial-gradient(circle at top, #ff9a9e, #ff5f8f, #ff2f68);
-}
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            background: radial-gradient(circle at top, #ff9a9e, #ff5f8f, #ff2f68);
+        }
 
-/* Heartbeat glow */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at center,
-    rgba(255,255,255,0.12),
-    transparent 60%);
-  animation: heartbeatGlow 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
+        /* Floating hearts */
+        .bg-heart {
+            position: fixed;
+            font-size: 20px;
+            opacity: 0.25;
+            animation: floatUp linear infinite;
+            pointer-events: none;
+        }
 
-@keyframes heartbeatGlow {
-  0% { opacity: 0.3; }
-  50% { opacity: 0.6; }
-  100% { opacity: 0.3; }
-}
+        @keyframes floatUp {
+            from {
+                transform: translateY(110vh) scale(0.8);
+            }
 
-/* Floating hearts */
-.bg-heart {
-  position: fixed;
-  pointer-events: none;
-  animation: floatUp linear infinite;
-  z-index: 1;
-}
+            to {
+                transform: translateY(-10vh) scale(1.3);
+            }
+        }
 
-@keyframes floatUp {
-  from { transform: translateY(-10vh) scale(0.8); }
-  to { transform: translateY(110vh) scale(1.3); }
-}
+        /* Card */
+        .card {
+            background: linear-gradient(135deg, rgba(255, 240, 245, 0.98), rgba(255, 228, 240, 0.98));
+            border-radius: 24px;
+            max-width: 380px;
+            width: 100%;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            animation: pop 0.8s ease;
+            z-index: 10;
+        }
 
-/* Card */
-.card {
-  background: rgba(255,255,255,0.96);
-  backdrop-filter: blur(10px);
-  border-radius: 26px;
-  max-width: 390px;
-  width: 100%;
-  padding: 26px;
-  text-align: center;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-  animation: pop 0.8s ease;
-  z-index: 10;
-}
+        @keyframes pop {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
 
-@keyframes pop {
-  from { transform: scale(0.85); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
-h1 {
-  color: #ff2f68;
-  font-size: 24px;
-  margin-bottom: 6px;
-}
+        h1 {
+            color: #ff2f68;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
 
-.sub {
-  color: #555;
-  font-size: 14px;
-  margin-bottom: 14px;
-}
+        .sub {
+            color: #555;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
 
-.heart {
-  font-size: 52px;
-  animation: pulse 1.2s infinite alternate;
-}
+        .heart {
+            font-size: 50px;
+            animation: pulse 1.2s infinite alternate;
+        }
 
-@keyframes pulse {
-  to { transform: scale(1.2); }
-}
+        @keyframes pulse {
+            to {
+                transform: scale(1.2);
+            }
+        }
 
-/* Timeline */
-.timeline {
-  margin: 18px 0;
-  text-align: left;
-}
+        /* Image with hidden text */
+        .image-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #ff2f68;
+            box-shadow: 0 0 25px rgba(255, 95, 143, 0.7);
+            cursor: pointer;
+        }
 
-.event {
-  background: #fff0f6;
-  padding: 12px 14px;
-  border-radius: 16px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: slideIn 0.6s forwards;
-}
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
 
-.event:nth-child(1){ animation-delay: 0.2s; }
-.event:nth-child(2){ animation-delay: 0.4s; }
-.event:nth-child(3){ animation-delay: 0.6s; }
-.event:nth-child(4){ animation-delay: 0.8s; }
+        .hidden-text {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 47, 104, 0.85);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s ease;
+            border-radius: 50%;
+        }
 
-@keyframes slideIn {
-  to { opacity: 1; transform: translateX(0); }
-}
+        .image-container.active img {
+            filter: blur(6px) brightness(0.6);
+            transform: scale(1.1);
+        }
 
-/* Kavithai */
-.kavithai {
-  background: #fff5f8;
-  padding: 16px;
-  border-radius: 18px;
-  font-size: 14px;
-  color: #444;
-  line-height: 1.6;
-  margin-top: 14px;
-}
+        .image-container.active .hidden-text {
+            opacity: 1;
+            transform: scale(1);
+        }
 
-/* Typed love */
-.typed-love {
-  margin-top: 18px;
-  font-size: 14px;
-  color: #333;
-  min-height: 70px;
-  line-height: 1.6;
-  font-style: italic;
-}
+        .tap-hint {
+            font-size: 12px;
+            color: #777;
+            margin-top: 6px;
+        }
 
-/* Button */
-button {
-  margin-top: 18px;
-  padding: 12px 32px;
-  border-radius: 30px;
-  border: none;
-  background: linear-gradient(135deg, #ff2f68, #ff5f8f);
-  color: #fff;
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+        /* Timeline */
+        .timeline {
+            margin: 20px 0;
+            text-align: left;
+        }
 
-button:hover {
-  transform: scale(1.06);
-  box-shadow: 0 8px 25px rgba(255,47,104,0.45);
-}
+        .event {
+            background: #fff0f6;
+            padding: 12px 14px;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            animation: slideIn 0.6s forwards;
+        }
 
-/* Petals */
-.petal {
-  position: fixed;
-  font-size: 22px;
-  animation: fall linear forwards;
-  pointer-events: none;
-  z-index: 999;
-}
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
 
-@keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(720deg);
-    opacity: 0;
-  }
-}
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
 
-audio { display: none; }
-</style>
+        /* Kavithai */
+        .kavithai {
+            background: #fff5f8;
+            padding: 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            color: #444;
+            line-height: 1.6;
+            margin-top: 16px;
+        }
+
+        /* Button */
+        button {
+            margin-top: 18px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(135deg, #ff2f68, #ff5f8f);
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        /* Petals */
+        .petal {
+            position: fixed;
+            font-size: 22px;
+            animation: fall linear forwards;
+            pointer-events: none;
+            z-index: 999;
+            top: -50px;
+        }
+
+        @keyframes fall {
+            from {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Floating hearts generator -->
-<script>
-function createBgHeart() {
-  const h = document.createElement("div");
-  h.className = "bg-heart";
-  h.textContent = Math.random() > 0.5 ? "💗" : "💖";
-  h.style.left = Math.random() * 100 + "%";
-  h.style.top = "-40px";
-  h.style.fontSize = 14 + Math.random() * 26 + "px";
-  h.style.opacity = 0.25 + Math.random() * 0.3;
-  h.style.animationDuration = 12 + Math.random() * 10 + "s";
-  document.body.appendChild(h);
-  setTimeout(() => h.remove(), 22000);
-}
-setInterval(createBgHeart, 450);
-</script>
+    <script>
+        function createBgHeart() {
+            const h = document.createElement("div");
+            h.className = "bg-heart";
+            h.textContent = Math.random() > 0.5 ? "💗" : "💖";
+            h.style.left = Math.random() * 100 + "%";
+            h.style.fontSize = 14 + Math.random() * 26 + "px";
+            h.style.animationDuration = 10 + Math.random() * 10 + "s";
+            document.body.appendChild(h);
+            setTimeout(() => h.remove(), 20000);
+        }
+        setInterval(createBgHeart, 500);
+    </script>
 
-<div class="card" id="card">
-  <div class="heart">💖</div>
-  <h1>Happy Valentine’s Day Ammu 🌸</h1>
-  <p class="sub">From Raghul — always yours ❤️</p>
+    <div class="card" id="card">
+        <div class="heart">💖</div>
+        <h1>Happy Valentine's Day Ammu 🌸</h1>
+        <p class="sub">From Raghul — always yours ❤️</p>
 
-  <div class="timeline">
-    <div class="event">📖 Jan 14, 2023 — I shared my diary with you</div>
-    <div class="event">💍 Mar 27, 2023 — I proposed my love</div>
-    <div class="event">❤️ Apr 4, 2023 — You said YES</div>
-    <div class="event">💞 1047 Days of Love till Feb 14, 2026</div>
-  </div>
+        <div class="image-container" id="photo">
+            <img src="couple.jpg" alt="Ammu ❤️ Raghul">
+            <div class="hidden-text">
+                Ammu… 💕<br><br>
+                Unna paatha naal la irundhu,<br>
+                en idhayam un kitta thaan ❤️
+            </div>
+        </div>
+        <div class="tap-hint">👆 Tap the photo</div>
 
-  <div class="kavithai">
-    “April 4-il nee ‘yes’ sonna nodi,<br>
-    En vazhkaiyin artham maari pochu Ammu.<br><br>
-    Kena nu kooptaalum,<br>
-    Ammu nu azhaithaalum,<br>
-    Indhumathi nu ezhuthinaalum,<br>
-    Ellam ore peyar thaan — <b>En kadhal.</b> 💕”
-  </div>
+        <div class="timeline">
+            <div class="event">📖 Jan 14, 2023 — Diary shared</div>
+            <div class="event">💍 Mar 27, 2023 — Proposal</div>
+            <div class="event">❤️ Apr 4, 2023 — YES moment</div>
+            <div class="event">💞 1047 days of love till Feb 14, 2026</div>
+        </div>
 
-  <div class="typed-love" id="typedLove"></div>
+        <div class="kavithai">
+            Nee pakkathula irundha podhu,<br>
+            ulagam romba azhaga irukku Ammu 💕
+            <br> Kena nu kooptaalum,<br> Ammu nu azhaithaalum,<br> Indhumathi nu ezhuthinaalum,<br> Ellam ore peyar
+            thaan — <b>En kadhal.</b>
+        </div>
 
-  <button onclick="celebrate()">One Last Surprise 💝</button>
-</div>
+        <button onclick="celebrate()">One More Surprise 💝</button>
+    </div>
 
-<audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+    <audio id="bgMusic" loop autoplay>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
-<script>
-const loveLines = [
-  "Ammu… nee sirikkumbothu enna ellam sari aagudhu.",
-  "Un voice kekkaatha naal kooda romba silent-aa irukkum.",
-  "Naan strong-aa irundhaalum, un kitta mattum soft-aa aagiren.",
-  "Nee en home. Always."
-];
+    <script>
+        const photo = document.getElementById("photo");
+        photo.addEventListener("click", () => {
+            photo.classList.toggle("active");
+        });
 
-let line = 0, char = 0;
-const typedEl = document.getElementById("typedLove");
+        const card = document.getElementById("card");
+        const music = document.getElementById("bgMusic");
 
-function typeLove() {
-  if (line >= loveLines.length) return;
-  if (char < loveLines[line].length) {
-    typedEl.innerHTML += loveLines[line].charAt(char++);
-    setTimeout(typeLove, 45);
-  } else {
-    typedEl.innerHTML += "<br><br>";
-    line++; char = 0;
-    setTimeout(typeLove, 500);
-  }
-}
-setTimeout(typeLove, 1200);
+        window.addEventListener("load", () => {
+            music.volume = 0.4;
+            music.play().catch(() => {
+                document.body.addEventListener("click", () => music.play(), { once: true });
+            });
+        });
 
-const card = document.getElementById("card");
-const music = document.getElementById("bgMusic");
+        function celebrate() {
+            music.volume = 0.5;
+            music.play();
 
-function celebrate() {
-  music.volume = 0.4;
-  music.play().catch(()=>{});
+            for (let i = 0; i < 35; i++) {
+                setTimeout(() => {
+                    const p = document.createElement("div");
+                    p.className = "petal";
+                    p.textContent = "🌹";
+                    p.style.left = Math.random() * 100 + "%";
+                    p.style.animationDuration = 3 + Math.random() * 3 + "s";
+                    document.body.appendChild(p);
+                    setTimeout(() => p.remove(), 6000);
+                }, i * 120);
+            }
 
-  for (let i = 0; i < 30; i++) {
-    setTimeout(() => {
-      const p = document.createElement("div");
-      p.className = "petal";
-      p.textContent = "🌹";
-      p.style.left = Math.random() * 100 + "%";
-      p.style.animationDuration = 3 + Math.random() * 3 + "s";
-      document.body.appendChild(p);
-      setTimeout(() => p.remove(), 6000);
-    }, i * 120);
-  }
-
-  setTimeout(() => {
-    card.innerHTML = `
-      <div class="heart">💞</div>
-      <h1>Ammu 🌙</h1>
-      <p class="sub">
-        1047 days…<br><br>
-        Ovvoru naalum nee pakkathula irundha madhiri thaan.<br><br>
-        Sandhoshathulayum,<br>
-        kashtathulayum,<br>
-        naan unna vittu pogamaatten.<br><br>
-        Idhu promise illa…<br>
-        <b>idhu en iyalbu.</b><br><br>
-        Forever yours,<br>
-        <b>Raghul ❤️</b>
-      </p>
-    `;
-  }, 900);
-}
-</script>
+            setTimeout(() => {
+                card.innerHTML = `
+            <div class="heart">💞</div>
+            <h1>Ammu…</h1>
+            <p class="sub">
+                1047 naatkal kadandhaalum,<br>
+                naan unna kaadhalikka aarambichadhu<br>
+                <b>innikku thaan madhiri irukku.</b><br><br>
+                Forever & Always,<br>
+                <b>Raghul ❤️</b>
+            </p>
+        `;
+            }, 1200);
+        }
+    </script>
 
 </body>
+
 </html>
