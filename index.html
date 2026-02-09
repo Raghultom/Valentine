@@ -287,18 +287,32 @@
         function startMusic() {
             if (!musicStarted) {
                 music.volume = 0.4;
-                music.play().catch(() => {});
-                musicStarted = true;
+                // Force play for mobile compatibility
+                const playPromise = music.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        musicStarted = true;
+                    }).catch(() => {
+                        // Retry on next interaction
+                        console.log("Audio blocked, will retry");
+                    });
+                }
             }
         }
 
-        document.addEventListener("click", startMusic, { once: true });
-        document.addEventListener("touchstart", startMusic, { once: true });
+        // Multiple event listeners for better mobile support
+        document.body.addEventListener("click", startMusic);
+        document.body.addEventListener("touchend", startMusic);
 
         function bindImage() {
             const photo = document.getElementById("photo");
             if (photo) {
                 photo.onclick = () => {
+                    startMusic();
+                    photo.classList.toggle("active");
+                };
+                photo.ontouchend = (e) => {
+                    e.preventDefault();
                     startMusic();
                     photo.classList.toggle("active");
                 };
@@ -308,7 +322,10 @@
 
         function celebrate() {
             startMusic();
-            music.volume = 0.5;
+            // Increase volume slightly
+            if (musicStarted) {
+                music.volume = 0.5;
+            }
 
             for (let i = 0; i < 35; i++) {
                 setTimeout(() => {
